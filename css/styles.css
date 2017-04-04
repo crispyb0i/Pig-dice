@@ -1,0 +1,15 @@
+#hit {
+  display: none;
+}
+
+#hold {
+  display: none;
+}
+
+#results .solo {
+  display: none;
+}
+
+#results .double {
+  display: none;
+}
