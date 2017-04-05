@@ -16,10 +16,14 @@ function computerTurn(){
     if(computer.turnTotal<10){
       computerTurn();
     }
+    else {
+      computer.total += computer.turnTotal;
+      $("#computer-total").text(computer.total);
+    }
     if (player1.total - computer.total > 5 && player1.total - computer.total <15) {
       computerTurn();
     }
-    $("#computer-total").text(computer.total);
+
   }
     $("#computer-turnTotal").text(computer.turnTotal);
     if (computer.total >= 100) {
@@ -28,7 +32,6 @@ function computerTurn(){
       $("#hold").hide();
       $("#again").show();
   }
-  computer.total = computer.total + computer.turnTotal;
 console.log(computer.turnTotal,computer.total);
 
 }
@@ -72,9 +75,11 @@ $("document").ready(function(){
     $("button").show();
   })
   $("#hit").click(function(){
+    computer.turnTotal = 0;
     randomNum = randomize();
     $('#player-history').append("<li>" + randomNum + "</li>");
     player1.roll(randomNum);
+
     $("#player-turnTotal").text(player1.turnTotal);
   });
   $("#hold").click(function(){
@@ -83,7 +88,7 @@ $("document").ready(function(){
     player1.turnTotal = 0;
     $("#player-turnTotal").text(player1.turnTotal);
     $('#player-total').text(player1.total);
-
+    computer.turnTotal = 0;
     if(player1.total>=100){
       alert("You Win!")
       $("#hit").hide();
