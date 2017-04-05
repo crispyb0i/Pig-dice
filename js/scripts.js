@@ -4,32 +4,33 @@ function randomize() {
 
 function computerTurn(){
   computerRoll1=randomize();
-  computerRoll2=randomize();
-  computerRoll3=randomize();
+  // computerRoll2=randomize();
+  // computerRoll3=randomize();
+  $("#computer-history").append("<li>"+computerRoll1 + "</li>");
+
   if(computerRoll1===1){
-    $("#computer-history").append("<li>"+computerRoll1 + "</li>");
     computer.turnTotal = 0;
   }
-  if(computerRoll1 !== 1 && computerRoll2 !==1){
-    $("#computer-history").append("<li>"+computerRoll1 + "</li>");
-    $("#computer-history").append("<li>"+computerRoll2 + "</li>");
-    computer.turnTotal = computerRoll1 + computerRoll2;
-    computer.total += computer.turnTotal;
-    $("#computer-turnTotal").text(computer.turnTotal);
+  else {
+    computer.turnTotal += computerRoll1;
+    if(computer.turnTotal<10){
+      computerTurn();
+    }
     if (player1.total - computer.total > 5 && player1.total - computer.total <15) {
       computerTurn();
     }
     $("#computer-total").text(computer.total);
-    console.log("computer",computer);
   }
-  if (computer.total >= 100) {
-    alert("You lost to a computer!");
-    $("#hit").hide();
-    $("#hold").hide();
-    $("#again").show();
-    player1.total=0;
-    computer.total=0;
+    $("#computer-turnTotal").text(computer.turnTotal);
+    if (computer.total >= 100) {
+      alert("You lost to a computer!");
+      $("#hit").hide();
+      $("#hold").hide();
+      $("#again").show();
   }
+  computer.total = computer.total + computer.turnTotal;
+console.log(computer.turnTotal,computer.total);
+
 }
 
 var player1Total = 0;
@@ -75,7 +76,6 @@ $("document").ready(function(){
     $('#player-history').append("<li>" + randomNum + "</li>");
     player1.roll(randomNum);
     $("#player-turnTotal").text(player1.turnTotal);
-    console.log(player1,randomNum)
   });
   $("#hold").click(function(){
 
@@ -89,8 +89,6 @@ $("document").ready(function(){
       $("#hit").hide();
       $("#hold").hide();
       $("#again").show();
-      player1.total=0;
-      computer.total=0;
     }else{
       alert("Computer's turn");
       computerTurn();
@@ -102,5 +100,9 @@ $("document").ready(function(){
     $("#again").hide();
     $("ul").empty();
     $("span").empty();
+    player1.total=0;
+    computer.total=0;
+    player1.turnTotal=0
+    computer.turnTotal=0
   });
 });
