@@ -24,27 +24,32 @@
         <button type="button" class="btn btn-primary btn-lg" name="solo" id="solo">Single Player Mode</button>
         <button type="button" class="btn btn-success btn-lg" name="double" id="double">Play With a Friend</button>
       </div>
+        <button type="button" class="btn btn-danger btn-lg" name="again" id="again">Play Again</button>
       <div id="results">
         <button type="button" class="btn btn-danger btn-lg" name="hit" id="hit">Hit!</button>
         <button type="button" class="btn btn-secondary btn-lg" name="hold" id="hold">Hold</button>
         <div class="row">
-          <div class="col-md-3 solo">
+          <div class="col-md-6 solo">
             <h3>Your Point Total: <span id="player-total"></span><h3>
+            <h3>Current Turn's Total: <span id="player-turnTotal"></span><h3>
             <ul id="player-history">
             </ul>
           </div>
-          <div class="col-md-3 solo">
+          <div class="col-md-6 solo">
             <h3>Computer's Point Total: <span id="computer-total"></span><h3>
+            <h3>Current Turn's Total: <span id="computer-turnTotal"></span><h3>
             <ul id="computer-history">
             </ul>
           </div>
-          <div class="col-md-3 double">
+          <div class="col-md-6 double">
             <h3>Player 1 Point Total: <span id="player1-total"></span><h3>
+            <h3>Current Turn's Total: <span id="player1-turnTotal"></span><h3>
             <ul id="player1-history">
             </ul>
           </div>
-          <div class="col-md-3 double">
+          <div class="col-md-6 double">
             <h3>Player 2 Point Total: <span id="player2-total"></span><h3>
+            <h3>Current Turn's Total: <span id="player2-turnTotal"></span><h3>
             <ul id="player2-history">
             </ul>
           </div>
