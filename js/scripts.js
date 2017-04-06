@@ -2,6 +2,8 @@
 function randomize() {
   return Math.ceil(Math.random()*6);
 }
+var soloMode = false;
+var friendMode = false;
 // function for computer's turn
 function computerTurn(){
   computerRoll=randomize();
@@ -18,7 +20,7 @@ function computerTurn(){
       computer.total += computer.turnTotal;
       $("#computer-total").text(computer.total);
     }
-    if (player1.total - computer.total > 5 && player1.total - computer.total <15) {
+    if (human.total - computer.total > 5 && human.total - computer.total <15) {
       computerTurn();
     }
   }
@@ -29,7 +31,6 @@ function computerTurn(){
     $("#hold").hide();
     $("#again").show();
   }
-console.log(computer.turnTotal,computer.total);
 }// end computer turn function
 // constructor function
 function Player(turnTotal, total) {
@@ -37,8 +38,9 @@ function Player(turnTotal, total) {
   this.total = total;
 }// end constructor
 // define instances
-var player1 = new Player(0, 0);
+var human = new Player(0, 0);
 var computer = new Player(0, 0);
+
 // define roll prototype
 Player.prototype.roll = function(randomNum) {
   if (randomNum === 1) {
@@ -54,44 +56,60 @@ Player.prototype.roll = function(randomNum) {
 $("document").ready(function(){
   // select one-player game and play against computer
   $("#solo").click(function(){
+    soloMode = true;
+    friendMode = false;
     $("#intro").hide();
     $("#results").show();
     $(".solo").show();
     $("button").show();
     $("#again").hide();
   })
+
+
   // select 2 player game
   $("#double").click(function(){
+    soloMode = false;
+    friendMode = true;
     $("#intro").hide();
     $(".double").show();
     $("#double").show();
     $("button").show();
+    $("#again").hide();
+    $(".P2").removeClass("myTurn");
+    $(".P1").addClass("myTurn");
   })
   // roll again
   $("#hit").click(function(){
-    computer.turnTotal = 0;
-    randomNum = randomize();
-    $('#player-history').append("<li>" + randomNum + "</li>");
-    player1.roll(randomNum);
-    $("#player-turnTotal").text(player1.turnTotal);
-  });
-  // pass turn
-  $("#hold").click(function(){
-    player1.total+=player1.turnTotal;
-    player1.turnTotal = 0;
-    $("#player-turnTotal").text(player1.turnTotal);
-    $('#player-total').text(player1.total);
-    computer.turnTotal = 0;
-    if(player1.total>=100){
-      alert("You Win!")
-      $("#hit").hide();
-      $("#hold").hide();
-      $("#again").show();
-    }else{
-      alert("Computer's turn");
-      computerTurn();
+    if(soloMode===true){
+      computer.turnTotal = 0;
+      randomNum = randomize();
+      $('#player-history').append("<li>" + randomNum + "</li>");
+      human.roll(randomNum);
+      $("#player-turnTotal").text(human.turnTotal);
     }
-  })
+  });
+    // pass turn
+    $("#hold").click(function(){
+      console.log(player1Turn)
+      if(soloMode===true){
+        human.total+=human.turnTotal;
+        human.turnTotal = 0;
+        $("#player-turnTotal").text(human.turnTotal);
+        $('#player-total').text(human.total);
+        console.log(human.total,human.turnTotal)
+        computer.turnTotal = 0;
+        if(human.total>=100){
+          alert("You Win!")
+          $("#hit").hide();
+          $("#hold").hide();
+          $("#again").show();
+        }else{
+          alert("Computer's turn");
+          computerTurn();
+        }
+      }
+    });
+
   // play again
   $("#again").click(function(){
     $("#results").hide();
@@ -99,9 +117,9 @@ $("document").ready(function(){
     $("#again").hide();
     $("ul").empty();
     $("span").empty();
-    player1.total=0;
+    human.total=0;
     computer.total=0;
-    player1.turnTotal=0
+    human.turnTotal=0
     computer.turnTotal=0
   });
 });
