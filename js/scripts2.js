@@ -39,14 +39,18 @@ $(function() {
         player2.turnTotal = 0;
         randomNum = randomize();
         $('#player1-history').append("<li>" + randomNum + "</li>");
+        console.log(player1Turn, player2Turn);
         player1.roll(randomNum);
+        console.log(player1Turn, player2Turn);
         $("#player1-turnTotal").text(player1.turnTotal);
       }
-      if (player2Turn===true) {
+       else if (player2Turn===true) {
         player1.turnTotal = 0;
         randomNum = randomize();
         $('#player2-history').append("<li>" + randomNum + "</li>");
+        console.log(player1Turn, player2Turn);
         player2.roll(randomNum);
+        console.log(player1Turn, player2Turn);
         $("#player2-turnTotal").text(player2.turnTotal);
       }
     }

@@ -6,25 +6,28 @@ var soloMode = false;
 var friendMode = false;
 // function for computer's turn
 function computerTurn(){
-  computerRoll=randomize();
-  $("#computer-history").append("<li>"+computerRoll + "</li>");
-  if(computerRoll===1){
-    computer.turnTotal = 0;
-  }
-  else {
-    computer.turnTotal += computerRoll;
-    if(computer.turnTotal<10){
-      computerTurn();
+  function computerFinish(){
+    computerRoll=randomize();
+    $("#computer-history").append("<li>"+computerRoll + "</li>");
+    if(computerRoll===1){
+      computer.turnTotal = 0;
     }
     else {
-      computer.total += computer.turnTotal;
-      $("#computer-total").text(computer.total);
+      computer.turnTotal += computerRoll;
+      if(computer.turnTotal<10){
+        computerFinish();
+      }
+      else {
+        computer.total += computer.turnTotal;
+        $("#computer-total").text(computer.total);
+      }
+      if (human.total - computer.total > 5 && human.total - computer.total <15) {
+        computerFinish();
+      }
     }
-    if (human.total - computer.total > 5 && human.total - computer.total <15) {
-      computerTurn();
-    }
+    $("#computer-turnTotal").text(computer.turnTotal);
   }
-  $("#computer-turnTotal").text(computer.turnTotal);
+  computerFinish();
   if (computer.total >= 100) {
     alert("You lost to a computer!");
     $("#hit").hide();
@@ -58,6 +61,12 @@ $("document").ready(function(){
   $("#solo").click(function(){
     soloMode = true;
     friendMode = false;
+    human.total = 0;
+    human.turnTotal = 0;
+    computer.total = 0;
+    computer.turnTotal = 0;
+    $("ul.list").empty();
+    $(".double").hide();
     $("#intro").hide();
     $("#results").show();
     $(".solo").show();
@@ -70,6 +79,13 @@ $("document").ready(function(){
   $("#double").click(function(){
     soloMode = false;
     friendMode = true;
+    player1.total = 0;
+    player1.turnTotal = 0;
+    player2.total = 0;
+    player2.turnTotal = 0;
+    $("ul.list").empty();
+    $(".solo").hide();
+    $("#results").show();
     $("#intro").hide();
     $(".double").show();
     $("#double").show();
@@ -115,11 +131,12 @@ $("document").ready(function(){
     $("#results").hide();
     $("#intro").show();
     $("#again").hide();
-    $("ul").empty();
+    $("ul.list").empty();
     $("span").empty();
+    // $("ul").show();
     human.total=0;
     computer.total=0;
-    human.turnTotal=0
-    computer.turnTotal=0
+    human.turnTotal=0;
+    computer.turnTotal=0;
   });
 });

@@ -1,9 +1,13 @@
 #hit {
   display: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 #hold {
   display: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 #results .solo {
@@ -16,4 +20,9 @@
 
 #again {
   display: none;
+}
+
+.myTurn {
+  background-color: #ffc689;
+  border-radius: 5px;
 }
